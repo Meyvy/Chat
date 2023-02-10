@@ -6,6 +6,11 @@ import socket
 from project import crypto
 import os.path
 
+CONFIG=""
+PUBLIC_KEY=""
+RSA_PUBLIC=""
+RSA_PRIVATE=""
+PARAM=""
 
 def check_data(data,other_pk,sym_sk):
     if not crypto.rsa_verify(eval(data['signature']), data['message'], other_pk):
@@ -79,22 +84,22 @@ def create_message(msg, sk, sym_sk):
 url_get_user = 'http://127.0.0.1:5000/user/{user}'
 
 server_pk = crypto.read_rsa_public_key(
-    '/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/public_server_key.pem')
+    PUBLIC_KEY)
 check = os.path.isfile(
-    '/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/client/config.txt')
+    CONFIG)
 if check != True:
     print('please run setup.py first')
     exit()
 
 
-with open('/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/shared_param.pem', "rb") as key_file:
+with open(PARAM, "rb") as key_file:
     param = crypto.serialization.load_pem_parameters(
         key_file.read()
     )
 
 
 
-f = open('/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/client/config.txt')
+f = open(CONFIG)
 
 content = f.readlines()
 user_name = content[0][:-1]
@@ -104,9 +109,9 @@ port = int(content[3][:-1])
 id = int(content[4])
 
 sk = crypto.read_rsa_private_key(
-    '/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/client/client_private_key.pem')
+    RSA_PRIAVTE)
 pk = crypto.read_rsa_public_key(
-    '/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/client/client_public_key.pem')
+    RSA_PUBLIC)
 
 other_name = input('who do you want to send a  message to?:')
 
