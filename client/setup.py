@@ -9,8 +9,13 @@ url_register='http://127.0.0.1:5000/register'
 url_verify='http://127.0.0.1:5000/verify'
 url_email_confirm='http://127.0.0.1:5000/confirm_email/{token}'
 
+CONFIG=""
+PUBLIC_KEY=""
+RSA_PRIVATE=""
+RSA_PUBLIC=""
+
 data={}
-check=os.path.isfile('/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/client/config.txt')
+check=os.path.isfile(CONFIG)
 if check==True:
     print('The user has already set up')
     exit() 
@@ -18,10 +23,10 @@ if check==True:
 
 sk,pk=crypto.rsa_key()
 spk=crypto.seriliaze_rsa_public_key(pk)
-crypto.write('/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/client/client_private_key.pem',crypto.seriliaze_rsa_private_key(sk))
-crypto.write('/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/client/client_public_key.pem',spk)
+crypto.write(RSA_PRIVATE,crypto.seriliaze_rsa_private_key(sk))
+crypto.write(RSA_PUBLIC,spk)
 
-server_pk=crypto.read_rsa_public_key('/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/public_server_key.pem')
+server_pk=crypto.read_rsa_public_key(RSA_PUBLIC)
 
 user_name=input('please enter a username:')
 
@@ -74,7 +79,7 @@ if r.status_code!=200:
 
 print(r.text)
 
-f=open('/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/client/config.txt','w+')
+f=open(CONFIG,'w+')
 f.write(user_name+'\n')
 f.write(name+'\n')
 f.write(email+'\n')
