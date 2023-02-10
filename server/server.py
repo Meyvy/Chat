@@ -18,8 +18,8 @@ def check(data, index, exist):
     return True
 
 
-path_to_sk = '/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/server/private_server_key.pem'
-path_to_pk = '/home/meyvy/Documents/studies/uni/term6/cryptography/code/project/public_server_key.pem'
+path_to_sk = ''
+path_to_pk = ''
 
 sk = crypto.read_rsa_private_key(path_to_sk)
 pk = crypto.read_rsa_public_key(path_to_pk)
@@ -134,7 +134,7 @@ def handle_verify():
     email = data['email']
     token = ts.dumps(email, salt=app.config['SALT'])
     msg = Message('Confirm Email',
-                  sender='mohamadrezaeyvazi@yahoo.com', recipients=[email])
+                  sender='', recipients=[email])
     msg.body = token
     mail.send(msg)
     return 'Confrim your email'
