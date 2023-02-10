@@ -33,7 +33,6 @@ data['user_name']=user_name
 data['name']=name
 data['email']=email
 data['user_name_sig']=repr(crypto.rsa_sign(user_name,sk))
-print('dsd')
 data['name_sig']=repr(crypto.rsa_sign(name,sk))
 data['email_sig']=repr(crypto.rsa_sign(email,sk))
 data['public_key']=repr(spk)
